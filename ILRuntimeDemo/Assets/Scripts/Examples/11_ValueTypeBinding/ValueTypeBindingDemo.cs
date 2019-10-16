@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Assets.Scripts.Examples._11_ValueTypeBinding;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;

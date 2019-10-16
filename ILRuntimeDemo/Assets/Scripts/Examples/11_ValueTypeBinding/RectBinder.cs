@@ -241,7 +241,7 @@ namespace Assets.Scripts.Examples._11_ValueTypeBinding
             var ptr = ILIntepreter.Minus(esp, 1);
 
             Vector2 @value = new Vector2();
-            vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
+            Vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
 
             ptr = ILIntepreter.Minus(esp, 2);
             UnityEngine.Rect instance_of_this_method;
@@ -274,7 +274,7 @@ namespace Assets.Scripts.Examples._11_ValueTypeBinding
             var ptr = ILIntepreter.Minus(esp, 1);
 
             Vector2 @value = new Vector2();
-            vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
+            Vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
 
             ptr = ILIntepreter.Minus(esp, 2);
             UnityEngine.Rect instance_of_this_method;
@@ -307,7 +307,7 @@ namespace Assets.Scripts.Examples._11_ValueTypeBinding
             var ptr = ILIntepreter.Minus(esp, 1);
 
             Vector2 @value = new Vector2();
-            vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
+            Vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
 
             ptr = ILIntepreter.Minus(esp, 2);
             UnityEngine.Rect instance_of_this_method;
@@ -340,7 +340,7 @@ namespace Assets.Scripts.Examples._11_ValueTypeBinding
             var ptr = ILIntepreter.Minus(esp, 1);
 
             Vector2 @value = new Vector2();
-            vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
+            Vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
 
             ptr = ILIntepreter.Minus(esp, 2);
             UnityEngine.Rect instance_of_this_method;
@@ -373,7 +373,7 @@ namespace Assets.Scripts.Examples._11_ValueTypeBinding
             var ptr = ILIntepreter.Minus(esp, 1);
 
             Vector2 @value = new Vector2();
-            vector2Binder.ParseValue(ref @value,intp,ptr, mStack);
+            Vector2Binder.ParseValue(ref @value,intp,ptr, mStack);
 
             ptr = ILIntepreter.Minus(esp, 2);
             UnityEngine.Rect instance_of_this_method;

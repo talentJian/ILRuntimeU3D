@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Assets.Scripts.Examples._11_ValueTypeBinding;
 using ILRuntime.CLR.TypeSystem;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
+using UnityEngine.Profiling;
 
 public class ValueTypeBindingDemo : MonoBehaviour
 {
@@ -56,12 +58,14 @@ public class ValueTypeBindingDemo : MonoBehaviour
         appdomain.LoadAssembly(fs, p, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
 
         InitializeILRuntime();
-        yield return new WaitForSeconds(0.5f);
-        RunTest();
-        yield return new WaitForSeconds(0.5f);
-        RunTest2();
+        //yield return new WaitForSeconds(0.5f);
+        //RunTest();
+        //yield return new WaitForSeconds(0.5f);
+        //RunTest2();
         yield return new WaitForSeconds(0.5f);
         RunTest3();
+        yield return new WaitForSeconds(0.5f);
+        RunTest4();
     }
 
     void InitializeILRuntime()
@@ -70,6 +74,7 @@ public class ValueTypeBindingDemo : MonoBehaviour
         appdomain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
         appdomain.RegisterValueTypeBinder(typeof(Quaternion), new QuaternionBinder());
         appdomain.RegisterValueTypeBinder(typeof(Vector2), new Vector2Binder());
+        appdomain.RegisterValueTypeBinder(typeof(Rect), new RectBinder());
     }
 
     void RunTest()
@@ -94,9 +99,33 @@ public class ValueTypeBindingDemo : MonoBehaviour
         Debug.Log("=======================================");
         Debug.Log("Vector2测试");
         //调用无参数静态方法，appdomain.Invoke("类名", "方法名", 对象引用, 参数列表);
+        Profiler.BeginSample("RunTest3");
         appdomain.Invoke("HotFix_Project.TestValueType", "RunTest3", null, null);
+        Profiler.EndSample();
     }
 
+    void RunTest4()
+    {
+        Debug.Log("=======================================");
+        Debug.Log("Rect测试");
+        //调用无参数静态方法，appdomain.Invoke("类名", "方法名", 对象引用, 参数列表);
+        Profiler.BeginSample("RunTest4");
+        appdomain.Invoke("HotFix_Project.TestValueType", "RunTest4", null, null);
+        Profiler.EndSample();
+    }
+
+    void OnGUI()
+    {
+        if (GUILayout.Button("RunTest3"))
+        {
+            RunTest3();
+        }
+
+        if (GUILayout.Button("RunTest4"))
+        {
+            RunTest4();
+        }
+    }
     private void OnDestroy()
     {
         if (fs != null)

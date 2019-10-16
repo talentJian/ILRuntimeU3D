@@ -32,6 +32,24 @@ namespace Assets.Scripts.Examples._11_ValueTypeBinding
             }
         }
 
+        Vector3Binder vector3Binder;
+        bool vector3BinderGot;
+
+        Vector3Binder Vector3Binder
+        {
+            get
+            {
+                if (!vector3BinderGot)
+                {
+                    vector3BinderGot = true;
+                    var vector3Type = CLRType.AppDomain.GetType(typeof(Vector3)) as CLRType;
+                    vector3Binder = vector3Type.ValueTypeBinder as Vector3Binder;
+                }
+
+                return vector3Binder;
+            }
+        }
+
         public override unsafe void CopyValueTypeToStack(ref Rect ins, StackObject* ptr, IList<object> mStack)
         {
     
@@ -130,9 +148,142 @@ namespace Assets.Scripts.Examples._11_ValueTypeBinding
             method = type.GetMethod("get_size", flag, null, args, null);
             appdomain.RegisterCLRMethodRedirection(method, Get_Size);
 
+            args = new Type[] { typeof(Vector2) };
+            method = type.GetMethod("set_min", flag, null, args, null);
+            appdomain.RegisterCLRMethodRedirection(method, Set_Min);
+
+            args = new Type[] { };
+            method = type.GetMethod("get_min", flag, null, args, null);
+            appdomain.RegisterCLRMethodRedirection(method, Get_Min);
+
+            args = new Type[] { typeof(Vector2) };
+            method = type.GetMethod("set_max", flag, null, args, null);
+            appdomain.RegisterCLRMethodRedirection(method, Set_Max);
+
+            args = new Type[] { };
+            method = type.GetMethod("get_max", flag, null, args, null);
+            appdomain.RegisterCLRMethodRedirection(method, Get_Max);
+
             args = new Type[] { };
             method = type.GetMethod("get_zero", flag, null, args, null);
             appdomain.RegisterCLRMethodRedirection(method, Get_Zero);
+
+            args = new Type[] { typeof(UnityEngine.Vector3) };
+            method = type.GetMethod("Contains", flag, null, args, null);
+            appdomain.RegisterCLRMethodRedirection(method, Contains_Vecotr3);
+
+            args = new Type[] { typeof(UnityEngine.Vector2) };
+            method = type.GetMethod("Contains", flag, null, args, null);
+            appdomain.RegisterCLRMethodRedirection(method, Contains_Vector2);
+        }
+
+        private unsafe StackObject* Contains_Vecotr3(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isnewobj)
+        {
+            var ret = ILIntepreter.Minus(esp, 2);
+
+            var ptr = ILIntepreter.Minus(esp, 1);
+
+            Vector3 @point = new Vector3();
+            Vector3Binder.ParseVector3(out @point, intp, ptr, mStack);
+
+
+            ptr = ILIntepreter.Minus(esp, 2); 
+            Rect mRect;
+            ParseRect(out mRect,intp,ptr,mStack);
+            var result = mRect.Contains(@point);
+
+            ret->ObjectType = ObjectTypes.Integer;
+            ret->Value = result ? 1 : 0;
+
+            return ret + 1;
+        }
+
+        private unsafe StackObject* Contains_Vector2(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isnewobj)
+        {
+            var ret = ILIntepreter.Minus(esp, 2);
+
+            var ptr = ILIntepreter.Minus(esp, 1);
+
+            Vector2 @point = new Vector2();
+            Vector2Binder.ParseVector2(out @point, intp, ptr, mStack);
+
+
+            ptr = ILIntepreter.Minus(esp, 2);
+            Rect mRect;
+            ParseRect(out mRect, intp, ptr, mStack);
+            var result = mRect.Contains(@point);
+
+            ret->ObjectType = ObjectTypes.Integer;
+            ret->Value = result ? 1 : 0;
+
+            return ret + 1;
+        }
+
+
+        private unsafe StackObject* Get_Max(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isnewobj)
+        {
+            var ret = ILIntepreter.Minus(esp, 1);
+
+            var ptr = ILIntepreter.Minus(esp, 1);
+            Rect rect;
+            ParseRect(out rect, intp, ptr, mStack);
+
+            Vector2 res = rect.max;
+
+            PushVector2(ref res, intp, ret, mStack);
+            return ret + 1;
+        }
+
+        private unsafe StackObject* Set_Max(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isnewobj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = intp.AppDomain;
+            var ret = ILIntepreter.Minus(esp, 2);
+            var ptr = ILIntepreter.Minus(esp, 1);
+
+            Vector2 @value = new Vector2();
+            vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
+
+            ptr = ILIntepreter.Minus(esp, 2);
+            UnityEngine.Rect instance_of_this_method;
+            ParseRect(out instance_of_this_method, intp, ptr, mStack);
+
+            instance_of_this_method.max = @value;
+
+            WriteBackValue(__domain, ptr, mStack, ref instance_of_this_method);
+            return ret;
+        }
+
+        private unsafe StackObject* Get_Min(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isnewobj)
+        {
+            var ret = ILIntepreter.Minus(esp, 1);
+
+            var ptr = ILIntepreter.Minus(esp, 1);
+            Rect rect;
+            ParseRect(out rect, intp, ptr, mStack);
+
+            Vector2 res = rect.min;
+
+            PushVector2(ref res, intp, ret, mStack);
+            return ret + 1;
+        }
+
+        private unsafe StackObject* Set_Min(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isnewobj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = intp.AppDomain;
+            var ret = ILIntepreter.Minus(esp, 2);
+            var ptr = ILIntepreter.Minus(esp, 1);
+
+            Vector2 @value = new Vector2();
+            vector2Binder.ParseValue(ref @value, intp, ptr, mStack);
+
+            ptr = ILIntepreter.Minus(esp, 2);
+            UnityEngine.Rect instance_of_this_method;
+            ParseRect(out instance_of_this_method, intp, ptr, mStack);
+
+            instance_of_this_method.min = @value;
+
+            WriteBackValue(__domain, ptr, mStack, ref instance_of_this_method);
+            return ret;
         }
 
         private unsafe StackObject* Get_Size(ILIntepreter intp, StackObject* esp, IList<object> mStack, CLRMethod method, bool isnewobj)

@@ -73,37 +73,90 @@ namespace HotFix_Project
 
         public static void RunTest3()
         {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             //Debug.Log("测试Vector2的各种运算");
-            Vector2 a = new Vector2(1, 2);
-            Vector2 b = Vector2.one;
 
-            Debug.Log("a + b = " + (a + b));
-            Debug.Log("a - b = " + (a - b));
-            Debug.Log("a * 2 = " + (a * 2));
-            Debug.Log("2 * a = " + (2 * a));
-            Debug.Log("a / 2 = " + (a / 2));
-            Debug.Log("-a = " + (-a));
-            Debug.Log("a == b = " + (a == b));
-            Debug.Log("a != b = " + (a != b));
-            Debug.Log("(Vector3)a = " + ((Vector3)a));
-            Debug.Log("(Vector2)Vector3.one = " + ((Vector2)Vector3.one));
-            Debug.Log("a dot b = " + Vector2.Dot(a, b));
-            Debug.Log("a distance b = " + Vector2.Distance(a, b));
-            Debug.Log("a.magnitude = " + a.magnitude);
-            Debug.Log("a.normalized = " + a.normalized);
-            Debug.Log("a.sqrMagnitude = " + a.sqrMagnitude);
+            //Vector2 a = new Vector2(1, 2);
+            //Vector2 b = Vector2.one;
 
-            sw.Start();
-            float dot = 0;
-            for (int i = 0; i < 100000; i++)
+            //Debug.Log("a + b = " + (a + b));
+            //Debug.Log("a - b = " + (a - b));
+            //Debug.Log("a * 2 = " + (a * 2));
+            //Debug.Log("2 * a = " + (2 * a));
+            //Debug.Log("a / 2 = " + (a / 2));
+            //Debug.Log("-a = " + (-a));
+            //Debug.Log("a == b = " + (a == b));
+            //Debug.Log("a != b = " + (a != b));
+            //Debug.Log("(Vector3)a = " + ((Vector3)a));
+            //Debug.Log("(Vector2)Vector3.one = " + ((Vector2)Vector3.one));
+            //Debug.Log("a dot b = " + Vector2.Dot(a, b));
+            //Debug.Log("a distance b = " + Vector2.Distance(a, b));
+            //Debug.Log("a.magnitude = " + a.magnitude);
+            //Debug.Log("a.normalized = " + a.normalized);
+            //Debug.Log("a.sqrMagnitude = " + a.sqrMagnitude);
+
+            //sw.Start();
+            //float dot = 0;
+            //for (int i = 0; i < 100000; i++)
+            //{
+            //    a += Vector2.one;
+            //    dot += Vector2.Dot(a, Vector2.zero);
+            //}
+            //sw.Stop();
+
+            //Debug.LogFormat("Value: a={0},dot={1}, time = {2}ms", a, dot, sw.ElapsedMilliseconds);
+
+            Vector2 a = new Vector2(1,2);
+            var total = 0f;
+            for (int i = 0; i < 100; i++)
             {
-                a += Vector2.one;
-                dot += Vector2.Dot(a, Vector2.zero);
+                total += a.y;
+                a.y = total;
             }
-            sw.Stop();
+        }
 
-            Debug.LogFormat("Value: a={0},dot={1}, time = {2}ms", a, dot, sw.ElapsedMilliseconds);
+        public static void RunTest4()
+        {
+            Rect a = new Rect(1,2,3,4);
+            //Rect b = Rect.zero;
+            //var ax = a.x;
+            //var ay = a.y;
+            //var awidth = a.width;
+            //var aheight = a.height;
+            //var total = 0f;
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    total += a.y;
+            //    a.y = total;
+            //}
+            //Debug.Log(total);
+            //Rect c = new Rect(2, 2, 5, 6);
+            //Debug.Log("a == b = " + (a == b));
+            //a.height = b.width;
+            //Debug.Log("a.height = b.width ,a.height = " + a.height);
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    a.height = b.width;
+            //}
+
+
+
+            //position
+            //Debug.Log(a.position);
+            //a.position = new Vector2(5,5);
+            //Debug.Log("position" + a.position);
+
+            //Debug.Log(a.center);
+            //a.center = new Vector2(5, 5);
+            //Debug.Log("center" +  a.center);
+
+            //Debug.Log(a.size);
+            a.size = new Vector2(5, 5);
+            //Debug.Log("size" + a.size);
+
+            var res = a.Contains(new Vector3(1, 2, 3));
+
+            res = a.Contains(new Vector2(1, 2));
         }
     }
 }
